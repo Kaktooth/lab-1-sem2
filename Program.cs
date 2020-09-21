@@ -2,119 +2,77 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
-namespace ConsoleApplication1
+namespace TTriangle
 {
     class Program
     {
+        protected static int ASide;
+        protected static int BSide;
+        protected static int CSide;
+
+    
+      public static int GetASide(int ASide)
+        {
+            return ASide;
+        }
+       public static void SetASide(int value)
+        {
+           ASide = value;
+        }
+        public static int GetBSide(int BSide)
+        {
+            return BSide;
+        }
+        public static void SetBSide(int value)
+        {
+            BSide = value;
+        }
+        public static int GetCSide(int CSide)
+        {
+            return CSide;
+        }
+        public static void SetCSide(int value)
+        {
+            CSide = value;
+        }
+        public static void Triangle(int ASideValue, int BSideValue, int CSideValue)
+        {
+            ASide = ASideValue;
+            BSide = BSideValue;
+            CSide = CSideValue;
+            if (ASide + BSide > CSide && ASide  +CSide > BSide && BSide + CSide >ASide)
+            {
+                Console.WriteLine("Трикутник Існує");
+               // a + b > c, a + c > b, b + c > a
+            }
+         else
+            {
+                Console.WriteLine("Трикутника не існує, тому значення сторін буде скинуто");
+                ASide = 0;
+                BSide = 0;
+                CSide = 0;
+            }
+        }
+        public static int PSum()
+        {
+            return ASide + BSide + CSide;
+        }
+        public static double Herons()
+        {
+            int s = PSum() / 2;
+            return Math.Sqrt(s * (s - ASide) * (s - BSide) * (s - CSide));
+        }
         static void Main(string[] args)
         {
-            Console.WriteLine("Enter length of n");
-            int n = int.Parse(Console.ReadLine());
 
-            int[,] matrixX = new int[n, n];
-            int[,] matrixY = new int[n, n];
-            int[,] numarray = new int[n, n];
-            int[,] sortedarray = new int[n, n];
-            int savednum = 0;
-            int savedarray = 0;
-            for (int i = 0; i < n; i++)
-            {
-                for (int j = 0; j < n; j++)
-                {
+            SetASide(3);
 
-                    matrixX[i, j] = int.Parse(Console.ReadLine());
-
-                }
-            }
-
-            Console.WriteLine("matrix X");
-            for (int i = 0; i < n; i++)
-            {
-                for (int j = 0; j < n; j++)
-                {
-
-                    Console.Write(matrixX[i, j]);
-
-                }
-                Console.WriteLine();
-            }
-
-            for (int i = 0; i < n; i++)
-            {
-                for (int j = 0; j < n; j++)
-                {
-                    matrixY[i, j] = matrixX[j, i];
-                    Console.Write(matrixX[j, i]);
-
-
-                }
-                Console.WriteLine();
-            }
+            SetCSide(20);
+            Triangle(21,23,26);
+            Console.WriteLine(GetASide(ASide) +" "+ GetCSide(CSide)+" "+PSum()+" "+Herons());
             Console.ReadLine();
-            for (int i = 0; i < n; i++)
-            {
-                for (int j = 0; j < n; j++)
-                {
-
-                    numarray[i, j] = matrixY[n - i - 1, j];
-
-
-
-                }
-
-            }
-            for (int i = 0; i < n; i++)
-            {
-                for (int j = 0; j < n; j++)
-                {
-
-                    Console.Write(numarray[i, j]);
-
-
-                }
-                Console.WriteLine();
-            }
-            Console.ReadLine();
-            //clearing array
-            for (int i = 0; i < n; i++)
-            {
-                
-                    if (numarray[i, 0] == 0)
-                    {
-                        Array.Clear(numarray, i, n);
-                       
-                        Console.WriteLine("Index " + i + " cleared");
-                    }
-
-                    if (numarray[i, 0] >= savednum)
-                    {
-                        savednum = numarray[i, 0];
-                      
-                            for (int j = 0; j < n; j++)
-                            {
-
-                                sortedarray[i, j] = numarray[i, j];
-                            }
-                        
-
-                    }
-
-
-                
-
-            }
-            Console.ReadLine();
-            for (int i = 0; i < n; i++)
-            {
-                
-                if (numarray[i, 0] < savednum)
-                {
-
-
-                }
-
-            }
 
         }
     }
